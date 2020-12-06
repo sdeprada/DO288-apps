@@ -6,9 +6,8 @@ LABEL io.k8s.description="A basic Apache HTTP Server child image, uses ONBUILD" 
       io.openshift.expose-services="8080:http" \
       io.openshift.tags="apache, httpd"
 
-RUN subscription-manager repos --enable rhel-7-server-optional-rpms --enable rhel-server-rhscl-7-rpms && \
-    yum -y install @development && \
-    yum -y install rh-python36 && \
+RUN yum -y install epel-release && \
+    yum -y install python-pip && \
     yum clean all
 
 RUN sed -i "s/Listen 80/Listen 8080/g" /etc/httpd/conf/httpd.conf && \
